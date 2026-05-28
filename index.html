@@ -1,428 +1,316 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Untuk Sila 🌸</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet"/>
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Lira Sila Fauzani 🌸</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Cormorant+Garamond:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: #fdfbf7;
+            color: #2d4a22;
+            font-family: 'Cormorant Garamond', serif;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: none;
+        }
 
-:root {
-  --gold:       #d4af37;
-  --gold-deep:  #aa7c11;
-  --meadow-bg:  #f4f7f1;
-  --meadow-dark:#2d4a22;
-  --meadow-soft:#a3b899;
-  --cream:      #fdfbf7;
-  --text:       #2c3e25;
-  --text-light: #556b2f;
-  --pink-petal: #ffb7c5;
-}
+        .presentation-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 1280px;
+            max-height: 720px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            background: #fff;
+            border-radius: 4px;
+        }
 
-body {
-  background: var(--meadow-bg);
-  color: var(--text);
-  font-family: 'Cormorant Garamond', serif;
-  min-height: 100vh;
-  overflow: hidden; /* Mencegah scroll ke bawah */
-  position: relative;
-}
+        @media (max-aspect-ratio: 16/9) {
+            .presentation-wrapper {
+                width: 100vw;
+                height: 56.25vw;
+            }
+        }
+        @media (min-aspect-ratio: 16/9) {
+            .presentation-wrapper {
+                height: 100vh;
+                width: 177.78vh;
+            }
+        }
 
-/* ---- BACKGROUND PADANG BUNGA (MEADOW GRID) ---- */
-.meadow-ambience {
-  position: fixed;
-  inset: 0;
-  background: 
-    linear-gradient(to bottom, rgba(253,251,247,0.8), rgba(244,247,241,0.9)),
-    radial-gradient(circle at 50% 100%, rgba(163,184,153,0.3) 0%, transparent 70%);
-  z-index: -2;
-}
+        .slide-deck {
+            display: flex;
+            width: 400%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+        }
 
-/* ---- FULLSCREEN ANIMASI BUNGA MEKAR (INTRO) ---- */
-#flower-intro {
-  position: fixed;
-  inset: 0;
-  background: var(--cream);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeOutIntro 1.5s ease 2.5s forwards;
-  pointer-events: none;
-}
-.intro-bloom {
-  font-size: 80px;
-  animation: giantBloom 2s ease-out forwards;
-}
-@keyframes giantBloom {
-  0% { transform: scale(0) rotate(0deg); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: scale(1.5) rotate(45deg); opacity: 0; }
-}
-@keyframes fadeOutIntro {
-  to { opacity: 0; visibility: hidden; }
-}
+        .slide-container {
+            width: 25%;
+            height: 100%;
+            flex-shrink: 0;
+            padding: 40px 60px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(to bottom, #faf6ee, #f4f7f1);
+        }
 
-/* ---- PETALS FALLING (FULL SCREEN) ---- */
-.petal {
-  position: fixed;
-  top: -40px;
-  pointer-events: none;
-  z-index: 10;
-  opacity: 0;
-  animation: fall linear infinite;
-}
-@keyframes fall {
-  0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
-  10%  { opacity: 0.8; }
-  90%  { opacity: 0.6; }
-  100% { transform: translateY(110vh) rotate(720deg) translateX(100px); opacity: 0; }
-}
+        .slide-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(24px, 4vh, 42px);
+            color: #2d4a22;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
 
-/* ---- SLIDER CONTAINER (HORIZONTAL) ---- */
-.slider-container {
-  display: flex;
-  width: 400vw; /* 4 Halaman */
-  height: 100vh;
-  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
-  will-change: transform;
-}
+        .content-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
 
-section {
-  width: 100vw;
-  height: 100vh;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 24px 100px; /* Ruang buat navbar bawah */
-  text-align: center;
-  position: relative;
-  overflow-y: auto; /* Jaga-jaga kalau layar hp pendek, konten dalem tetap bisa di-scroll */
-}
+        .title-layout { text-align: center; }
+        .title-layout h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 8vh, 72px); line-height: 1.1; margin-bottom: 20px; color: #2d4a22; }
+        .title-layout h1 span { font-style: italic; color: #d4af37; }
+        .title-layout .subtitle { font-family: 'IM Fell English', serif; font-size: clamp(12px, 2vh, 18px); letter-spacing: 5px; text-transform: uppercase; color: #aa7c11; margin-bottom: 10px; }
 
-/* ---- DECORATIVE FRAME ---- */
-.frame {
-  position: absolute;
-  inset: 20px;
-  border: 1px solid rgba(163,184,153,0.4);
-  pointer-events: none;
-}
-.frame::before, .frame::after {
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-color: var(--meadow-soft);
-  border-style: solid;
-}
-.frame::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
-.frame::after  { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+        .tiled-content { display: flex; gap: 30px; justify-content: center; width: 100%; }
+        .tile { flex: 1; background: rgba(255,255,255,0.7); border: 1px solid rgba(163,184,153,0.4); padding: 30px; border-radius: 12px; text-align: center; backdrop-filter: blur(4px); }
+        .tile .icon { font-size: clamp(32px, 6vh, 48px); color: #d4af37; margin-bottom: 15px; }
+        .tile p { font-size: clamp(14px, 2.2vh, 18px); line-height: 1.5; }
 
-/* ---- CONTENT STYLING ---- */
-.hero-ornament { font-size: 42px; margin-bottom: 16px; display: inline-block; animation: float 4s ease-in-out infinite; }
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .letter-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; height: 100%; align-items: center; }
+        .letter-text { text-align: justify; font-size: clamp(14px, 2.3vh, 19px); line-height: 1.7; padding-right: 20px; color: #3d2b1f; }
+        .letter-text p { margin-bottom: 15px; }
+        .letter-img-container { width: 100%; height: 100%; max-height: 450px; overflow: hidden; border-radius: 8px; border: 1px solid rgba(163,184,153,0.5); }
+        .letter-img { width: 100%; height: 100%; object-fit: cover; }
 
-.hero-label { font-family: 'IM Fell English', serif; font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 12px; }
-.hero-title { font-family: 'Playfair Display', serif; font-size: clamp(36px, 8vw, 64px); font-weight: 700; color: var(--meadow-dark); line-height: 1.2; margin-bottom: 12px; }
-.hero-title span { color: var(--gold-deep); font-style: italic; }
-.hero-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(16px, 3.5vw, 22px); color: var(--text-light); }
+        .qa-layout { text-align: center; max-width: 500px; margin: 0 auto; width: 100%; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-label { display: block; font-family: 'IM Fell English', serif; font-size: 12px; letter-spacing: 2px; color: #aa7c11; margin-bottom: 5px; }
+        .form-input, .form-textarea { width: 100%; padding: 10px 14px; border: 1px solid #a3b899; border-radius: 8px; font-family: inherit; font-size: 15px; background: rgba(255,255,255,0.8); outline: none; }
+        .form-input:focus, .form-textarea:focus { border-color: #2d4a22; }
+        
+        .submit-btn { width: 100%; padding: 12px; background: #2d4a22; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: 0.3s; font-family: 'Playfair Display', serif; font-style: italic; }
+        .submit-btn:hover { background: #aa7c11; }
 
-/* ---- MUSIC CARD ---- */
-.music-card {
-  background: white;
-  border: 1px solid rgba(163,184,153,0.3);
-  border-radius: 20px;
-  padding: 32px;
-  max-width: 360px;
-  width: 100%;
-  box-shadow: 0 10px 30px rgba(45,74,34,0.05);
-}
-.music-flower { font-size: 48px; margin-bottom: 16px; animation: spin 12s linear infinite; display: inline-block; }
-.music-flower.paused { animation-play-state: paused; }
-.play-btn {
-  margin-top: 20px; width: 100%; padding: 12px;
-  background: var(--meadow-dark); color: var(--cream);
-  border: none; border-radius: 50px; font-family: inherit; font-size: 16px; cursor: pointer;
-  transition: all 0.3s;
-}
-.play-btn:hover { background: var(--text-light); }
-#yt-frame { display: none; }
+        #bloom-intro {
+            position: fixed;
+            inset: 0;
+            background: #fdfbf7;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeOut 1s ease 2.5s forwards;
+            pointer-events: none;
+        }
+        .bloom-flower { font-size: 100px; animation: bloomScale 2s ease-out forwards; }
+        @keyframes bloomScale { 0% { transform: scale(0) rotate(-45deg); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(1.4) rotate(0deg); opacity: 0; } }
+        @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
 
-/* ---- LETTER PAPER ---- */
-.letter-paper {
-  background: white;
-  border: 1px solid rgba(163,184,153,0.25);
-  border-radius: 12px;
-  padding: 40px 32px;
-  max-width: 580px;
-  width: 100%;
-  box-shadow: 0 10px 40px rgba(45,74,34,0.04);
-  text-align: justify;
-}
-.letter-greeting { font-family: 'Playfair Display', serif; font-style: italic; font-size: 24px; color: var(--meadow-dark); margin-bottom: 16px; }
-.letter-body { font-size: 17px; line-height: 1.8; color: var(--text); }
-.letter-body p { margin-bottom: 12px; }
-.letter-closing { margin-top: 24px; text-align: right; font-family: 'Playfair Display', serif; font-style: italic; }
+        .petal { position: fixed; top: -50px; pointer-events: none; z-index: 100; opacity: 0.7; animation: petalFall linear infinite; }
+        @keyframes petalFall { to { transform: translateY(110vh) rotate(720deg) translateX(100px); opacity: 0; } }
 
-/* ---- GUESTBOOK ---- */
-.guestbook-form { max-width: 460px; width: 100%; text-align: left; background: white; padding: 24px; border-radius: 16px; border: 1px solid rgba(163,184,153,0.3); }
-.form-group { margin-bottom: 14px; }
-.form-label { display: block; font-family: 'IM Fell English', serif; font-size: 11px; letter-spacing: 1px; color: var(--gold-deep); margin-bottom: 4px; }
-.form-input, .form-textarea { width: 100%; border: 1px solid #e0e0e0; border-radius: 8px; padding: 10px 14px; font-family: inherit; font-size: 15px; background: #fafafa; outline: none; }
-.form-input:focus, .form-textarea:focus { border-color: var(--meadow-soft); }
-.submit-btn { width: 100%; padding: 12px; background: var(--meadow-dark); color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
-.messages-list { max-width: 460px; width: 100%; margin-top: 20px; max-height: 150px; overflow-y: auto; }
-.message-card { background: white; padding: 12px 16px; border-radius: 8px; margin-bottom: 8px; text-align: left; border: 1px solid #f0f0f0; }
-.message-name { font-weight: bold; font-size: 14px; color: var(--meadow-dark); }
-.message-text { font-size: 14px; margin-top: 2px; }
-
-/* ---- FIXED STEERABLE NAVIGATION NAVIGATION ---- */
-.nav-wrapper {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
-.nav-buttons {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  background: rgba(255, 255, 255, 0.85);
-  padding: 10px 24px;
-  border-radius: 40px;
-  border: 1px solid rgba(163,184,153,0.4);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 8px 32px rgba(45,74,34,0.08);
-}
-.nav-btn {
-  background: var(--meadow-dark);
-  color: white;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s;
-}
-.nav-btn:disabled {
-  background: #e0e0e0;
-  color: #a0a0a0;
-  cursor: not-allowed;
-}
-.nav-dots {
-  display: flex;
-  gap: 8px;
-}
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #d0d0d0;
-  transition: all 0.3s;
-}
-.dot.active {
-  background: var(--gold-deep);
-  transform: scale(1.3);
-}
-</style>
+        .nav-controls {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            z-index: 1000;
+        }
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #a3b899;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2d4a22;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .nav-btn:hover { background: #2d4a22; color: white; border-color: #2d4a22; }
+        .nav-dots { display: flex; gap: 10px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: #d0d7cd; cursor: pointer; transition: 0.3s; }
+        .dot.active { background: #aa7c11; transform: scale(1.3); }
+    </style>
 </head>
 <body>
 
-<div class="meadow-ambience"></div>
-
-<div id="flower-intro">
-  <div class="intro-bloom">🌸</div>
-</div>
-
-<div id="petals"></div>
-
-<div class="slider-container" id="mainSlider">
-  
-  <section id="page-1">
-    <div class="frame"></div>
-    <span class="hero-ornament">🌸</span>
-    <div class="hero-label">Sebuah perayaan untuk</div>
-    <h1 class="hero-title">Lira <span>Sila</span> Fauzani</h1>
-    <p class="hero-subtitle">Selamat atas kelulusanmu, Juni 2026</p>
-  </section>
-
-  <section id="page-2">
-    <div class="frame"></div>
-    <div class="hero-label" style="margin-bottom:8px;">Suasana</div>
-    <h2 class="hero-title" style="font-size: 28px; margin-bottom:24px;">Dengarkan Sembari Membaca</h2>
-    <div class="music-card">
-      <div class="music-flower paused" id="musicFlower">🌻</div>
-      <div class="music-title" style="font-style: italic; font-size: 18px;">Merry Christmas, I Miss You</div>
-      <p style="font-size: 13px; color: var(--text-light);">Untukmu, dari seseorang yang merindukanmu</p>
-      <button class="play-btn" id="playBtn" onclick="toggleMusic()">▶ Putar Lagu</button>
+    <div id="bloom-intro">
+        <div class="bloom-flower">🌸</div>
     </div>
-    <iframe id="yt-frame" src="" allow="autoplay"></iframe>
-  </section>
 
-  <section id="page-3">
-    <div class="frame"></div>
-    <div class="letter-paper">
-      <div class="letter-greeting">Hi, Sila.</div>
-      <div class="letter-body">
-        <p>Kamu gak perlu tau siapa yang kirim ini.</p>
-        <p>Aku gak bisa hadir di hari kelulusan kamu, jadi aku buatin aja website ini sebagai support dariku. Selamat ya, kamu sudah menyelesaikan pendidikan 3 tahun mu di sekolah ini. Aku bangga sama kamu.</p>
-        <p>Aku harap, mimpi kamu untuk menjadi dokter atau psikolog gak pernah luntur ya. Aku titip salamku lewat website yang aku bikin ini.</p>
-        <p>Kemana pun kamu melangkah, aku selalu berdoa untuk kebaikan dirimu.</p>
-      </div>
-      <div class="letter-closing">
-        <p>Dengan tulus,</p>
-        <p style="color: var(--gold-deep); font-weight: bold; margin-top: 4px;">~ Seseorang yang peduli 🌸</p>
-      </div>
+    <div id="petal-overlay"></div>
+
+    <div class="presentation-wrapper">
+        <div class="slide-deck" id="slideDeck">
+            
+            <div class="slide-container">
+                <div class="title-layout">
+                    <p class="subtitle">Sebuah Perayaan Untuk</p>
+                    <h1>Lira <span>Sila</span> Fauzani</h1>
+                    <p style="font-size: clamp(16px, 2.5vh, 22px); font-style: italic; color: #aa7c11;">Selamat atas kelulusanmu, Juni 2026</p>
+                </div>
+            </div>
+
+            <div class="slide-container">
+                <h2 class="slide-title">Suasana & Lagu</h2>
+                <div class="content-area">
+                    <div class="tiled-content">
+                        <div class="tile">
+                            <div class="icon"><i class="fa-solid fa-compact-disc"></i></div>
+                            <h3 style="font-family: 'Playfair Display'; margin-bottom: 10px; font-size: clamp(16px, 2.5vh, 22px);">Merry Christmas, I Miss You</h3>
+                            <p>Dengarkan lagu ini sembari kamu membaca pesan hangat yang aku titipkan di slide berikutnya.</p>
+                            <button class="submit-btn" style="margin-top:20px; font-size:14px; padding:10px 20px; width:auto;" onclick="toggleMusic(this)">▶ Putar Lagu</button>
+                        </div>
+                        <div class="tile">
+                            <div class="icon"><i class="fa-solid fa-feather-pointed"></i></div>
+                            <h3 style="font-family: 'Playfair Display'; margin-bottom: 10px; font-size: clamp(16px, 2.5vh, 22px);">Padang Bunga</h3>
+                            <p>Atmosfer ini dipilih khusus karena ketenangan dirimu selayaknya hamparan dandelions di padang rumput fajar.</p>
+                        </div>
+                    </div>
+                </div>
+                <iframe id="yt-frame" style="display:none;" src="" allow="autoplay"></iframe>
+            </div>
+
+            <div class="slide-container">
+                <div class="letter-layout">
+                    <div class="letter-text">
+                        <h2 class="slide-title" style="margin-bottom: 15px;">Sepucuk Surat</h2>
+                        <p>Hi, Sila. Kamu tidak perlu tahu siapa yang mengirimkan ini.</p>
+                        <p>Aku tidak bisa hadir di hari kelulusanmu, jadi aku buatkan slide presentasi ini sebagai bentuk dukungan penuh dariku dari kejauhan. Selamat ya, kamu sudah menyelesaikan pendidikan 3 tahunmu di sekolah ini. Aku sangat bangga sama kamu.</p>
+                        <p>Aku harap mimpi besar kamu untuk menjadi seorang dokter atau psikolog tidak pernah luntur ya. Kemanapun langkah membawamu berjalan, aku selalu berdoa untuk kebaikan dan keselamatan dirimu.</p>
+                        <p style="margin-top: 20px; font-family: 'Playfair Display'; font-style: italic; color: #aa7c11; text-align: right;">— Seseorang yang peduli 🌸</p>
+                    </div>
+                    <div class="letter-img-container">
+                        <img class="letter-img" src="https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?q=80&w=600&auto=format&fit=cover" alt="Flowers">
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-container">
+                <h2 class="slide-title" style="text-align:center;">Buku Tamu</h2>
+                <div class="content-area">
+                    <div class="qa-layout">
+                        <div class="form-group">
+                            <label class="form-label">NAMAMU</label>
+                            <input class="form-input" id="nameIn" type="text" placeholder="Siapa namamu?">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">PESAN UNTUK SILA</label>
+                            <textarea class="form-textarea" id="msgIn" rows="3" placeholder="Tulis ucapan atau pesanmu di sini..."></textarea>
+                        </div>
+                        <button class="submit-btn" onclick="addMsg()">Kirim Pesan ✉</button>
+                        <div id="statusMsg" style="margin-top: 12px; font-style: italic; font-size: 14px; color: #aa7c11;"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="nav-controls">
+            <button class="nav-btn" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="nav-dots">
+                <div class="dot active" onclick="goToSlide(0)"></div>
+                <div class="dot" onclick="goToSlide(1)"></div>
+                <div class="dot" onclick="goToSlide(2)"></div>
+                <div class="dot" onclick="goToSlide(3)"></div>
+            </div>
+            <button class="nav-btn" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
     </div>
-  </section>
 
-  <section id="page-4">
-    <div class="frame"></div>
-    <div class="hero-label" style="margin-bottom:4px;">Memori</div>
-    <h2 class="hero-title" style="font-size: 28px; margin-bottom:16px;">Buku Tamu</h2>
-    
-    <div class="guestbook-form">
-      <div class="form-group">
-        <label class="form-label">Namamu</label>
-        <input class="form-input" id="guestName" type="text" placeholder="Siapa namamu?"/>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Pesan untuk Sila</label>
-        <textarea class="form-textarea" id="guestMsg" rows="3" placeholder="Tulis pesanmu di sini..."></textarea>
-      </div>
-      <button class="submit-btn" onclick="submitMessage()">Kirim Pesan ✉</button>
-    </div>
-    <div class="messages-list" id="messagesList"></div>
-  </section>
+    <script>
+        let currentIdx = 0;
+        const deck = document.getElementById('slideDeck');
+        const dots = document.querySelectorAll('.dot');
 
-</div>
+        function updateDeck() {
+            deck.style.transform = `translateX(-${currentIdx * 25}%)`;
+            dots.forEach((d, i) => d.classList.toggle('active', i === currentIdx));
+        }
 
-<div class="nav-wrapper">
-  <div class="nav-buttons">
-    <button class="nav-btn" id="prevBtn" onclick="movePage(-1)" disabled>←</button>
-    <div class="nav-dots">
-      <div class="dot active"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-    </div>
-    <button class="nav-btn" id="nextBtn" onclick="movePage(1)">→</button>
-  </div>
-</div>
+        function moveSlide(dir) {
+            currentIdx = (currentIdx + dir + 4) % 4;
+            updateDeck();
+        }
 
-<script>
-// ---- PAGES NAVIGATION LOGIC ----
-var currentPage = 0;
-var totalPages = 4;
-var slider = document.getElementById('mainSlider');
-var dots = document.querySelectorAll('.dot');
-var prevBtn = document.getElementById('prevBtn');
-var nextBtn = document.getElementById('nextBtn');
+        function goToSlide(idx) {
+            currentIdx = idx;
+            updateDeck();
+        }
 
-function movePage(direction) {
-  currentPage += direction;
-  
-  // Amankan batas index halaman
-  if (currentPage < 0) currentPage = 0;
-  if (currentPage >= totalPages) currentPage = totalPages - 1;
-  
-  // Geser kontainer secara horizontal
-  slider.style.transform = 'translateX(-' + (currentPage * 100) + 'vw)';
-  
-  // Update UI control Navigasi
-  dots.forEach(function(dot, idx) {
-    if (idx === currentPage) dot.classList.add('active');
-    else dot.classList.remove('active');
-  });
-  
-  prevBtn.disabled = (currentPage === 0);
-  nextBtn.disabled = (currentPage === totalPages - 1);
-}
+        function createPetals() {
+            const container = document.getElementById('petal-overlay');
+            const colors = ['#ffb7c5', '#ffdae0', '#fdfbf7', '#e8c97a'];
+            for (let i = 0; i < 25; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.innerHTML = '🌸';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.fontSize = (12 + Math.random() * 16) + 'px';
+                petal.style.animationDuration = (6 + Math.random() * 8) + 's';
+                petal.style.animationDelay = (Math.random() * 4) + 's';
+                petal.style.color = colors[Math.floor(Math.random() * colors.length)];
+                container.appendChild(petal);
+            }
+        }
+        createPetals();
 
-// ---- PETALS GENERATOR (FULL SCREEN) ----
-function createPetals() {
-  var container = document.getElementById('petals');
-  // Variasi warna kelopak sakura & bunga padang rumput
-  var colors = ['#ffb7c5', '#ff99ad', '#f4f7f1', '#e8c97a', '#ffe3e8'];
-  for (var i = 0; i < 25; i++) {
-    var petal = document.createElement('div');
-    petal.className = 'petal';
-    var size = 12 + Math.random() * 15;
-    var left = Math.random() * 100;
-    var duration = 7 + Math.random() * 8;
-    var delay = Math.random() * 6;
-    var color = colors[Math.floor(Math.random() * colors.length)];
-    
-    petal.style.cssText = 'left:'+left+'vw;animation-duration:'+duration+'s;animation-delay:'+delay+'s;';
-    petal.innerHTML = '<svg width="'+size+'" height="'+size+'" viewBox="0 0 20 20"><path d="M10,0 C15,5 20,10 10,20 C0,10 5,5 10,0 Z" fill="'+color+'" transform="rotate('+Math.random()*360+' 10 10)"/></svg>';
-    container.appendChild(petal);
-  }
-}
-createPetals();
+        let isPlaying = false;
+        const YT_ID = 'lZthgjSN9n0';
+        function toggleMusic(btn) {
+            const frame = document.getElementById('yt-frame');
+            if(!isPlaying) {
+                frame.src = `https://www.youtube.com/embed/${YT_ID}?autoplay=1&controls=0&loop=1&playlist=${YT_ID}`;
+                btn.innerHTML = '⏸ Jeda Lagu';
+                isPlaying = true;
+            } else {
+                frame.src = "";
+                btn.innerHTML = '▶ Putar Lagu';
+                isPlaying = false;
+            }
+        }
 
-// ---- MUSIC CONTROL ----
-var isPlaying = false;
-var ytFrame = document.getElementById('yt-frame');
-var YT_ID = 'lZthgjSN9n0';
-
-function toggleMusic() {
-  var flower = document.getElementById('musicFlower');
-  var btn = document.getElementById('playBtn');
-  if (!isPlaying) {
-    ytFrame.src = 'https://www.youtube.com/embed/' + YT_ID + '?autoplay=1&controls=0&loop=1&playlist=' + YT_ID;
-    btn.textContent = '⏸ Jeda Lagu';
-    flower.classList.remove('paused');
-    isPlaying = true;
-  } else {
-    ytFrame.src = '';
-    btn.textContent = '▶ Putar Lagu';
-    flower.classList.add('paused');
-    isPlaying = false;
-  }
-}
-
-// ---- GUESTBOOK STORAGE & RENDERING ----
-var messages = JSON.parse(localStorage.getItem('sila_guestbook') || '[]');
-
-function renderMessages() {
-  var list = document.getElementById('messagesList');
-  if (!messages.length) {
-    list.innerHTML = '<div style="font-style:italic; color:var(--text-light); font-size:14px; text-align:center; padding:10px;">Belum ada pesan disini...</div>';
-    return;
-  }
-  list.innerHTML = messages.slice().reverse().map(function(m) {
-    return '<div class="message-card"><div class="message-name">'+escHtml(m.name)+'</div><div class="message-text">'+escHtml(m.text)+'</div></div>';
-  }).join('');
-}
-
-function escHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-function submitMessage() {
-  var name = document.getElementById('guestName').value.trim();
-  var text = document.getElementById('guestMsg').value.trim();
-  if (!name || !text) { alert('Tulis nama dan pesanmu dulu ya 🌸'); return; }
-  messages.push({ name: name, text: text });
-  localStorage.setItem('sila_guestbook', JSON.stringify(messages));
-  document.getElementById('guestName').value = '';
-  document.getElementById('guestMsg').value = '';
-  renderMessages();
-}
-
-renderMessages();
-</script>
+        function addMsg() {
+            const name = document.getElementById('nameIn').value.trim();
+            const msg = document.getElementById('msgIn').value.trim();
+            if(name && msg) {
+                let storage = JSON.parse(localStorage.getItem('sila_gb') || '[]');
+                storage.push({name, msg});
+                localStorage.setItem('sila_gb', JSON.stringify(storage));
+                
+                document.getElementById('statusMsg').innerText = "Pesan hangatmu telah terkirim! ✨";
+                document.getElementById('nameIn').value = "";
+                document.getElementById('msgIn').value = "";
+            } else {
+                alert("Isi nama dan pesanmu dulu ya 🌸");
+            }
+        }
+    </script>
 </body>
 </html>
