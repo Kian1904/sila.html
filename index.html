@@ -25,28 +25,26 @@
             touch-action: none;
         }
 
+        /* --- CONTAINER UTAMA RESPONSIF (TIDAK AKAN KECROP) --- */
         .presentation-wrapper {
             position: relative;
-            width: 100%;
-            height: 100%;
-            max-width: 1280px;
-            max-height: 720px;
+            width: 100vw;
+            height: 100vh;
+            max-width: 100%;
+            max-height: 100%;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
             background: #fff;
-            border-radius: 4px;
         }
 
-        @media (max-aspect-ratio: 16/9) {
+        /* Pembatas rasio slide agar rapi di desktop */
+        @media (min-width: 769px) {
             .presentation-wrapper {
-                width: 100vw;
-                height: 56.25vw;
-            }
-        }
-        @media (min-aspect-ratio: 16/9) {
-            .presentation-wrapper {
-                height: 100vh;
-                width: 177.78vh;
+                width: 90vw;
+                height: 50.625vw; /* Rasio 16:9 */
+                max-width: 1100px;
+                max-height: 618px;
+                border-radius: 12px;
+                box-shadow: 0 20px 50px rgba(0,0,0,0.1);
             }
         }
 
@@ -61,55 +59,73 @@
             width: 25%;
             height: 100%;
             flex-shrink: 0;
-            padding: 40px 60px;
+            padding: 30px 24px 100px; /* Jarak bawah aman untuk tombol */
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
             background: linear-gradient(to bottom, #faf6ee, #f4f7f1);
+            overflow-y: auto; /* Antisipasi layar HP sangat pendek */
+        }
+
+        @media (min-width: 769px) {
+            .slide-container { padding: 40px 60px; }
         }
 
         .slide-title {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(24px, 4vh, 42px);
+            font-size: clamp(22px, 4vh, 36px);
             color: #2d4a22;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-weight: 700;
+            text-align: center;
         }
 
         .content-area {
-            flex-grow: 1;
+            width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            overflow: hidden;
+            align-items: center;
         }
 
-        .title-layout { text-align: center; }
-        .title-layout h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 8vh, 72px); line-height: 1.1; margin-bottom: 20px; color: #2d4a22; }
+        /* --- SLIDE 1: HERO --- */
+        .title-layout { text-align: center; width: 100%; }
+        .title-layout h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 7vh, 56px); line-height: 1.2; margin-bottom: 15px; color: #2d4a22; }
         .title-layout h1 span { font-style: italic; color: #d4af37; }
-        .title-layout .subtitle { font-family: 'IM Fell English', serif; font-size: clamp(12px, 2vh, 18px); letter-spacing: 5px; text-transform: uppercase; color: #aa7c11; margin-bottom: 10px; }
+        .title-layout .subtitle { font-family: 'IM Fell English', serif; font-size: clamp(11px, 2vh, 16px); letter-spacing: 4px; text-transform: uppercase; color: #aa7c11; margin-bottom: 10px; }
 
-        .tiled-content { display: flex; gap: 30px; justify-content: center; width: 100%; }
-        .tile { flex: 1; background: rgba(255,255,255,0.7); border: 1px solid rgba(163,184,153,0.4); padding: 30px; border-radius: 12px; text-align: center; backdrop-filter: blur(4px); }
-        .tile .icon { font-size: clamp(32px, 6vh, 48px); color: #d4af37; margin-bottom: 15px; }
-        .tile p { font-size: clamp(14px, 2.2vh, 18px); line-height: 1.5; }
+        /* --- SLIDE 2: TILES (LAGU) --- */
+        .tiled-content { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 500px; }
+        @media (min-width: 769px) {
+            .tiled-content { flex-direction: row; max-width: 800px; gap: 25px; }
+        }
+        .tile { flex: 1; background: rgba(255,255,255,0.75); border: 1px solid rgba(163,184,153,0.4); padding: 20px; border-radius: 12px; text-align: center; backdrop-filter: blur(4px); }
+        .tile .icon { font-size: clamp(24px, 4vh, 36px); color: #d4af37; margin-bottom: 10px; }
+        .tile p { font-size: clamp(13px, 1.8vh, 16px); line-height: 1.5; }
 
-        .letter-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; height: 100%; align-items: center; }
-        .letter-text { text-align: justify; font-size: clamp(14px, 2.3vh, 19px); line-height: 1.7; padding-right: 20px; color: #3d2b1f; }
-        .letter-text p { margin-bottom: 15px; }
-        .letter-img-container { width: 100%; height: 100%; max-height: 450px; overflow: hidden; border-radius: 8px; border: 1px solid rgba(163,184,153,0.5); }
+        /* --- SLIDE 3: SURAT --- */
+        .letter-layout { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 500px; }
+        @media (min-width: 769px) {
+            .letter-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; max-width: 900px; gap: 40px; align-items: center; }
+        }
+        .letter-text { text-align: justify; font-size: clamp(14px, 2.1vh, 17px); line-height: 1.6; color: #3d2b1f; }
+        .letter-text p { margin-bottom: 10px; }
+        .letter-img-container { width: 100%; height: 140px; overflow: hidden; border-radius: 8px; border: 1px solid rgba(163,184,153,0.4); }
+        @media (min-width: 769px) { .letter-img-container { height: 320px; } }
         .letter-img { width: 100%; height: 100%; object-fit: cover; }
 
-        .qa-layout { text-align: center; max-width: 500px; margin: 0 auto; width: 100%; }
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-label { display: block; font-family: 'IM Fell English', serif; font-size: 12px; letter-spacing: 2px; color: #aa7c11; margin-bottom: 5px; }
-        .form-input, .form-textarea { width: 100%; padding: 10px 14px; border: 1px solid #a3b899; border-radius: 8px; font-family: inherit; font-size: 15px; background: rgba(255,255,255,0.8); outline: none; }
-        .form-input:focus, .form-textarea:focus { border-color: #2d4a22; }
+        /* --- SLIDE 4: BUKU TAMU --- */
+        .qa-layout { text-align: center; max-width: 400px; margin: 0 auto; width: 100%; }
+        .form-group { margin-bottom: 12px; text-align: left; }
+        .form-label { display: block; font-family: 'IM Fell English', serif; font-size: 11px; letter-spacing: 1px; color: #aa7c11; margin-bottom: 4px; }
+        .form-input, .form-textarea { width: 100%; padding: 10px 12px; border: 1px solid #a3b899; border-radius: 8px; font-family: inherit; font-size: 14px; background: rgba(255,255,255,0.8); outline: none; }
         
-        .submit-btn { width: 100%; padding: 12px; background: #2d4a22; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: 0.3s; font-family: 'Playfair Display', serif; font-style: italic; }
+        .submit-btn { width: 100%; padding: 11px; background: #2d4a22; color: white; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; transition: 0.3s; font-family: 'Playfair Display', serif; font-style: italic; }
         .submit-btn:hover { background: #aa7c11; }
 
+        /* --- INTRO & PETALS --- */
         #bloom-intro {
             position: fixed;
             inset: 0;
@@ -121,28 +137,29 @@
             animation: fadeOut 1s ease 2.5s forwards;
             pointer-events: none;
         }
-        .bloom-flower { font-size: 100px; animation: bloomScale 2s ease-out forwards; }
-        @keyframes bloomScale { 0% { transform: scale(0) rotate(-45deg); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(1.4) rotate(0deg); opacity: 0; } }
+        .bloom-flower { font-size: 70px; animation: bloomScale 2s ease-out forwards; }
+        @keyframes bloomScale { 0% { transform: scale(0) rotate(-45deg); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(1.3) rotate(0deg); opacity: 0; } }
         @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
 
-        .petal { position: fixed; top: -50px; pointer-events: none; z-index: 100; opacity: 0.7; animation: petalFall linear infinite; }
+        .petal { position: fixed; top: -50px; pointer-events: none; z-index: 100; opacity: 0.6; animation: petalFall linear infinite; }
         @keyframes petalFall { to { transform: translateY(110vh) rotate(720deg) translateX(100px); opacity: 0; } }
 
+        /* --- NAVIGASI BAWAH --- */
         .nav-controls {
             position: absolute;
-            bottom: 25px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 20px;
+            gap: 15px;
             align-items: center;
             z-index: 1000;
         }
         .nav-btn {
             background: rgba(255, 255, 255, 0.9);
             border: 1px solid #a3b899;
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
@@ -152,9 +169,9 @@
             transition: 0.3s;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
-        .nav-btn:hover { background: #2d4a22; color: white; border-color: #2d4a22; }
-        .nav-dots { display: flex; gap: 10px; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; background: #d0d7cd; cursor: pointer; transition: 0.3s; }
+        .nav-btn:hover { background: #2d4a22; color: white; }
+        .nav-dots { display: flex; gap: 8px; align-items: center; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #d0d7cd; cursor: pointer; transition: 0.3s; }
         .dot.active { background: #aa7c11; transform: scale(1.3); }
     </style>
 </head>
@@ -173,7 +190,7 @@
                 <div class="title-layout">
                     <p class="subtitle">Sebuah Perayaan Untuk</p>
                     <h1>Lira <span>Sila</span> Fauzani</h1>
-                    <p style="font-size: clamp(16px, 2.5vh, 22px); font-style: italic; color: #aa7c11;">Selamat atas kelulusanmu, Juni 2026</p>
+                    <p style="font-size: clamp(15px, 2.2vh, 19px); font-style: italic; color: #aa7c11;">Selamat atas kelulusanmu, Juni 2026</p>
                 </div>
             </div>
 
@@ -183,13 +200,13 @@
                     <div class="tiled-content">
                         <div class="tile">
                             <div class="icon"><i class="fa-solid fa-compact-disc"></i></div>
-                            <h3 style="font-family: 'Playfair Display'; margin-bottom: 10px; font-size: clamp(16px, 2.5vh, 22px);">Merry Christmas, I Miss You</h3>
+                            <h3 style="font-family: 'Playfair Display'; margin-bottom: 6px; font-size: 17px;">Merry Christmas, I Miss You</h3>
                             <p>Dengarkan lagu ini sembari kamu membaca pesan hangat yang aku titipkan di slide berikutnya.</p>
-                            <button class="submit-btn" style="margin-top:20px; font-size:14px; padding:10px 20px; width:auto;" onclick="toggleMusic(this)">▶ Putar Lagu</button>
+                            <button class="submit-btn" style="margin-top:12px; font-size:13px; padding:8px 16px; width:auto;" onclick="toggleMusic(this)">▶ Putar Lagu</button>
                         </div>
                         <div class="tile">
                             <div class="icon"><i class="fa-solid fa-feather-pointed"></i></div>
-                            <h3 style="font-family: 'Playfair Display'; margin-bottom: 10px; font-size: clamp(16px, 2.5vh, 22px);">Padang Bunga</h3>
+                            <h3 style="font-family: 'Playfair Display'; margin-bottom: 6px; font-size: 17px;">Padang Bunga</h3>
                             <p>Atmosfer ini dipilih khusus karena ketenangan dirimu selayaknya hamparan dandelions di padang rumput fajar.</p>
                         </div>
                     </div>
@@ -200,11 +217,11 @@
             <div class="slide-container">
                 <div class="letter-layout">
                     <div class="letter-text">
-                        <h2 class="slide-title" style="margin-bottom: 15px;">Sepucuk Surat</h2>
+                        <h2 class="slide-title" style="text-align: left; margin-bottom: 10px;">Sepucuk Surat</h2>
                         <p>Hi, Sila. Kamu tidak perlu tahu siapa yang mengirimkan ini.</p>
                         <p>Aku tidak bisa hadir di hari kelulusanmu, jadi aku buatkan slide presentasi ini sebagai bentuk dukungan penuh dariku dari kejauhan. Selamat ya, kamu sudah menyelesaikan pendidikan 3 tahunmu di sekolah ini. Aku sangat bangga sama kamu.</p>
                         <p>Aku harap mimpi besar kamu untuk menjadi seorang dokter atau psikolog tidak pernah luntur ya. Kemanapun langkah membawamu berjalan, aku selalu berdoa untuk kebaikan dan keselamatan dirimu.</p>
-                        <p style="margin-top: 20px; font-family: 'Playfair Display'; font-style: italic; color: #aa7c11; text-align: right;">— Seseorang yang peduli 🌸</p>
+                        <p style="margin-top: 15px; font-family: 'Playfair Display'; font-style: italic; color: #aa7c11; text-align: right;">— Seseorang yang peduli 🌸</p>
                     </div>
                     <div class="letter-img-container">
                         <img class="letter-img" src="https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?q=80&w=600&auto=format&fit=cover" alt="Flowers">
@@ -213,7 +230,7 @@
             </div>
 
             <div class="slide-container">
-                <h2 class="slide-title" style="text-align:center;">Buku Tamu</h2>
+                <h2 class="slide-title">Buku Tamu</h2>
                 <div class="content-area">
                     <div class="qa-layout">
                         <div class="form-group">
@@ -225,7 +242,7 @@
                             <textarea class="form-textarea" id="msgIn" rows="3" placeholder="Tulis ucapan atau pesanmu di sini..."></textarea>
                         </div>
                         <button class="submit-btn" onclick="addMsg()">Kirim Pesan ✉</button>
-                        <div id="statusMsg" style="margin-top: 12px; font-style: italic; font-size: 14px; color: #aa7c11;"></div>
+                        <div id="statusMsg" style="margin-top: 10px; font-style: italic; font-size: 13px; color: #aa7c11;"></div>
                     </div>
                 </div>
             </div>
@@ -267,12 +284,12 @@
         function createPetals() {
             const container = document.getElementById('petal-overlay');
             const colors = ['#ffb7c5', '#ffdae0', '#fdfbf7', '#e8c97a'];
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < 20; i++) {
                 const petal = document.createElement('div');
                 petal.className = 'petal';
                 petal.innerHTML = '🌸';
                 petal.style.left = Math.random() * 100 + 'vw';
-                petal.style.fontSize = (12 + Math.random() * 16) + 'px';
+                petal.style.fontSize = (12 + Math.random() * 14) + 'px';
                 petal.style.animationDuration = (6 + Math.random() * 8) + 's';
                 petal.style.animationDelay = (Math.random() * 4) + 's';
                 petal.style.color = colors[Math.floor(Math.random() * colors.length)];
