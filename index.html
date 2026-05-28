@@ -6,306 +6,401 @@
     <title>Untuk Lira Sila Fauzani 🌸</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2 family=Playfair+Display:ital,wght@0,700;1,400&family=Cormorant+Garamond:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Cormorant+Garamond:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
+        /* --- 1. CORE SYSTEM --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
             background-color: #fdfbf7;
             color: #2d4a22;
             font-family: 'Cormorant Garamond', serif;
-            height: 100vh; /* Mengunci tinggi tepat 100% dari tinggi layar browser */
-            width: 100vw;  /* Mengunci lebar tepat 100% dari lebar layar browser */
+            height: 100vh;
+            width: 100vw;
             overflow: hidden;
             position: relative;
             touch-action: none;
         }
 
+        /* --- 2. GERBANG AMPLOP (Halaman Pertama) --- */
+        #gate-overlay {
+            position: fixed;
+            inset: 0;
+            background: #fdfbf7;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease, visibility 1s;
+        }
+        .envelope-wrapper {
+            width: 260px;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .envelope-wrapper:hover { transform: scale(1.05); }
+        .envelope-icon { font-size: 80px; color: #aa7c11; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.08)); }
+        .gate-hint { 
+            margin-top: 25px; 
+            font-family: 'IM Fell English', serif; 
+            font-size: 13px;
+            letter-spacing: 3px; 
+            color: #aa7c11; 
+            text-transform: uppercase;
+            animation: pulseFade 2s infinite;
+        }
+        @keyframes pulseFade { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        /* --- 3. SLIDE SYSTEM RESIF --- */
         .slide-deck {
             display: flex;
-            width: 400%;
+            width: 1000%; /* 10 Slides = 1000% */
             height: 100%;
-            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+            visibility: hidden;
         }
 
         .slide-container {
-            width: 25%;
+            width: 10%;
             height: 100%;
             flex-shrink: 0;
-            padding: 20px 20px 100px; 
+            padding: 30px 24px 100px;
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(to bottom, #faf6ee, #f4f7f1);
+            background-color: #fdfbf7;
+            background-size: cover;
+            background-position: center;
         }
 
-        .scrollable-content {
-            width: 100%;
-            max-width: 600px;
-            max-height: 100%;
-            overflow-y: auto;
-            padding-right: 4px;
-            touch-action: pan-y;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        /* Scrim transparan pelindung teks agar tidak silau background */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(253, 251, 247, 0.91);
+            z-index: 0;
         }
+        
+        /* Tema khusus slide bintang astronomi */
+        .slide-container.stars-theme::before { background: rgba(15, 23, 36, 0.85); }
+        .slide-container.stars-theme { color: #fdfbf7; }
+
+        .content-box { 
+            position: relative; 
+            z-index: 1; 
+            width: 100%; 
+            max-width: 600px; 
+            text-align: center;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: 0.8s ease 0.3s;
+        }
+        .active-slide .content-box { opacity: 1; transform: translateY(0); }
 
         .slide-title {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(20px, 3.8vh, 32px);
-            color: #2d4a22;
+            font-size: clamp(22px, 4.2vh, 36px);
             margin-bottom: 15px;
-            font-weight: 700;
-            text-align: center;
+            line-height: 1.2;
+            color: inherit;
         }
 
-        /* --- SLIDE 1: HERO --- */
-        .title-layout { text-align: center; width: 100%; }
-        .title-layout h1 { font-family: 'Playfair Display', serif; font-size: clamp(26px, 5.5vh, 44px); line-height: 1.2; margin-bottom: 12px; color: #2d4a22; }
-        .title-layout h1 span { font-style: italic; color: #d4af37; }
-        .title-layout .subtitle { font-family: 'IM Fell English', serif; font-size: clamp(10px, 1.8vh, 14px); letter-spacing: 3px; text-transform: uppercase; color: #aa7c11; margin-bottom: 8px; }
-
-        /* --- SLIDE 2: LAGU --- */
-        .tiled-content { display: flex; flex-direction: column; gap: 12px; width: 100%; }
-        .tile { background: rgba(255,255,255,0.8); border: 1px solid rgba(163,184,153,0.3); padding: 15px; border-radius: 12px; text-align: center; }
-        .tile .icon { font-size: clamp(20px, 3.2vh, 30px); color: #d4af37; margin-bottom: 6px; }
-        .tile p { font-size: clamp(12px, 1.7vh, 15px); line-height: 1.4; color: #444; }
-
-        /* --- SLIDE 3: SURAT --- */
-        .letter-text { text-align: justify; font-size: clamp(13px, 1.9vh, 16px); line-height: 1.5; color: #3d2b1f; width: 100%; }
-        .letter-text p { margin-bottom: 6px; }
-        .letter-img-container { width: 100%; height: 90px; max-height: 110px; overflow: hidden; border-radius: 8px; margin-top: 8px; border: 1px solid rgba(163,184,153,0.3); }
-        .letter-img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* --- SLIDE 4: BUKU TAMU --- */
-        .qa-layout { text-align: center; width: 100%; }
-        .form-group { margin-bottom: 8px; text-align: left; }
-        .form-label { display: block; font-family: 'IM Fell English', serif; font-size: 10px; letter-spacing: 1px; color: #aa7c11; margin-bottom: 2px; }
-        .form-input, .form-textarea { width: 100%; padding: 8px 12px; border: 1px solid #a3b899; border-radius: 8px; font-family: inherit; font-size: 14px; background: rgba(255,255,255,0.9); outline: none; }
-        
-        .submit-btn { width: 100%; padding: 10px; background: #2d4a22; color: white; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; font-family: 'Playfair Display', serif; font-style: italic; }
-
-        /* --- INTRO & PETALS --- */
-        #bloom-intro {
-            position: fixed;
-            inset: 0;
-            background: #fdfbf7;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: fadeOut 1s ease 2.2s forwards;
-            pointer-events: none;
+        .slide-text {
+            font-size: clamp(14px, 2.1vh, 18px);
+            line-height: 1.6;
+            text-align: justify;
+            margin-bottom: 12px;
+            color: inherit;
         }
-        .bloom-flower { font-size: 50px; animation: bloomScale 1.8s ease-out forwards; }
-        @keyframes bloomScale { 0% { transform: scale(0) rotate(-45deg); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(1.2) rotate(0deg); opacity: 0; } }
-        @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
 
-        .petal { position: fixed; top: -50px; pointer-events: none; z-index: 100; opacity: 0.5; animation: petalFall linear infinite; }
-        @keyframes petalFall { to { transform: translateY(110vh) rotate(720deg) translateX(80px); opacity: 0; } }
-
-        /* --- NAVIGASI FIXED POSITION (ANTI MELAR / ANTI POTONG) --- */
-        .nav-controls {
+        /* --- 4. NAVIGASI FIXED BAWAH (ANTI-CROP) --- */
+        .nav-ui {
             position: fixed;
-            bottom: 25px; /* Menjaga jarak konstan dari batas bawah ruang sampel */
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             gap: 15px;
             align-items: center;
-            z-index: 1000;
+            z-index: 5000;
             background: rgba(255, 255, 255, 0.9);
-            padding: 6px 16px;
-            border-radius: 30px;
-            border: 1px solid rgba(163,184,153,0.3);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 8px 20px;
+            border-radius: 40px;
+            border: 1px solid rgba(163, 184, 153, 0.3);
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            transition: opacity 1s ease;
         }
-        .nav-btn {
-            background: transparent;
-            border: none;
-            width: 36px;
-            height: 36px;
-            display: flex;
+        .nav-arrow { background: none; border: none; color: #2d4a22; cursor: pointer; font-size: 16px; padding: 5px; }
+        .nav-dots { display: flex; gap: 6px; align-items: center; }
+        .dot { width: 7px; height: 7px; border-radius: 50%; background: #d0d7cd; cursor: pointer; transition: 0.3s; }
+        .dot.active { background: #aa7c11; transform: scale(1.4); }
+
+        /* --- 5. ANIMASI FLOWER BLOOM & PETALS --- */
+        #bloom-intro {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
             align-items: center;
             justify-content: center;
-            color: #2d4a22;
-            font-size: 16px;
-            cursor: pointer;
+            background: #fdfbf7;
         }
-        .nav-dots { display: flex; gap: 6px; align-items: center; }
-        .dot { width: 7px; height: 7px; border-radius: 50%; background: #d0d7cd; transition: 0.3s; }
-        .dot.active { background: #aa7c11; transform: scale(1.3); }
+        .bloom-flower { font-size: 100px; animation: bloomAnim 2s ease-out forwards; }
+        @keyframes bloomAnim { 
+            0% { transform: scale(0) rotate(-45deg); opacity: 0; } 
+            50% { opacity: 1; }
+            100% { transform: scale(2) rotate(0deg); opacity: 0; } 
+        }
 
-        @media (min-width: 769px) {
-            .slide-container { padding: 40px 100px 100px; }
-            .tiled-content { flex-direction: row; }
-            .letter-img-container { height: 160px; max-height: 180px; }
-        }
+        .petal { position: fixed; top: -50px; pointer-events: none; z-index: 2000; opacity: 0.5; animation: petalDown linear infinite; }
+        @keyframes petalDown { to { transform: translateY(110vh) rotate(720deg) translateX(100px); opacity: 0; } }
+
+        /* --- 6. GUESTBOOK SYSTEM --- */
+        .guest-form { background: rgba(255,255,255,0.8); padding: 20px; border-radius: 12px; border: 1px solid #a3b899; text-align: left; }
+        .form-label { font-size: 10px; letter-spacing: 1px; color: #aa7c11; font-family: 'IM Fell English'; display: block; margin-bottom: 4px; }
+        .guest-input, .guest-area { width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 6px; border: 1px solid #a3b899; font-family: inherit; font-size: 14px; background: #fff; outline: none; }
+        .btn-send { width: 100%; padding: 12px; background: #2d4a22; color: white; border: none; border-radius: 6px; font-family: 'Playfair Display'; font-style: italic; cursor: pointer; font-size: 15px; }
+
     </style>
 </head>
 <body>
+
+    <div id="gate-overlay">
+        <div class="envelope-wrapper" onclick="startNarrative()">
+            <div class="envelope-icon"><i class="fa-regular fa-envelope-open"></i></div>
+            <p class="gate-hint">Klik untuk Membuka Surat</p>
+        </div>
+    </div>
 
     <div id="bloom-intro">
         <div class="bloom-flower">🌸</div>
     </div>
 
-    <div id="petal-overlay"></div>
+    <div id="petal-system"></div>
 
-    <div class="slide-deck" id="slideDeck">
+    <div class="slide-deck" id="mainDeck">
         
-        <div class="slide-container">
-            <div class="scrollable-content">
-                <div class="title-layout">
-                    <p class="subtitle">Sebuah Perayaan Untuk</p>
-                    <h1>Lira <span>Sila</span> Fauzani</h1>
-                    <p style="font-size: 15px; font-style: italic; color: #aa7c11;">Selamat atas kelulusanmu, Juni 2026</p>
-                </div>
+        <div class="slide-container active-slide" style="background-image: url('https://images.unsplash.com/photo-1494972308805-463bc619b34e?q=80&w=600');">
+            <div class="content-box">
+                <p style="font-family: 'IM Fell English'; letter-spacing: 4px; color: #aa7c11; text-transform: uppercase; margin-bottom: 8px;">A Special Narrative For</p>
+                <h1 style="font-family: 'Playfair Display'; font-size: clamp(30px, 7vh, 52px); color: #2d4a22; line-height: 1.1;">Lira <span style="font-style: italic; color: #d4af37;">Sila</span> Fauzani</h1>
+                <p style="margin-top: 15px; font-style: italic; font-size: 18px; color: #aa7c11;">Selamat Atas Kelulusanmu, Juni 2026</p>
             </div>
         </div>
 
         <div class="slide-container">
-            <h2 class="slide-title">Suasana & Lagu</h2>
-            <div class="scrollable-content">
-                <div class="tiled-content">
-                    <div class="tile">
-                        <div class="icon"><i class="fa-solid fa-compact-disc"></i></div>
-                        <h3 style="font-family: 'Playfair Display'; margin-bottom: 4px; font-size: 15px;">Merry Christmas, I Miss You</h3>
-                        <p>Dengarkan lagu ini sembari kamu membaca pesan hangat yang aku titipkan di slide berikutnya.</p>
-                        <button class="submit-btn" style="margin-top:10px; font-size:12px; padding:6px 12px; width:auto;" onclick="toggleMusic(this)">▶ Putar Lagu</button>
-                    </div>
-                    <div class="tile">
-                        <div class="icon"><i class="fa-solid fa-feather-pointed"></i></div>
-                        <h3 style="font-family: 'Playfair Display'; margin-bottom: 4px; font-size: 15px;">Padang Bunga</h3>
-                        <p>Atmosfer ini dipilih khusus karena ketenangan dirimu selayaknya hamparan dandelions di padang rumput fajar.</p>
-                    </div>
-                </div>
-            </div>
-            <iframe id="yt-frame" style="display:none;" src="" allow="autoplay"></iframe>
-        </div>
-
-        <div class="slide-container">
-            <div class="scrollable-content">
-                <div class="letter-text">
-                    <h2 class="slide-title" style="text-align: left; margin-bottom: 6px;">Sepucuk Surat</h2>
-                    <p>Hi, Sila. Kamu tidak perlu tahu siapa yang mengirimkan ini.</p>
-                    <p>Aku tidak bisa hadir di hari kelulusanmu, jadi aku buatkan slide presentasi ini sebagai bentuk dukungan penuh dariku dari kejauhan. Selamat ya, kamu sudah menyelesaikan pendidikan 3 tahunmu di sekolah ini. Aku sangat bangga sama kamu.</p>
-                    <p>Aku harap mimpi besar kamu untuk menjadi seorang dokter atau psikolog tidak pernah luntur ya. Kemanapun langkah membawamu berjalan, aku selalu berdoa untuk kebaikan dan keselamatan dirimu.</p>
-                    <p style="margin-top: 10px; font-family: 'Playfair Display'; font-style: italic; color: #aa7c11; text-align: right;">— Seseorang yang peduli 🌸</p>
-                </div>
-                <div class="letter-img-container">
-                    <img class="letter-img" src="https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?q=80&w=600&auto=format&fit=cover" alt="Flowers">
+            <div class="content-box" style="max-width: 450px;">
+                <div style="background: white; padding: 30px; border-radius: 16px; border: 1px solid rgba(163, 184, 153, 0.4);">
+                    <i class="fa-solid fa-music" style="font-size: 32px; color: #d4af37; margin-bottom: 15px;"></i>
+                    <h2 class="slide-title" style="font-size: 22px;">Alunan Pengiring</h2>
+                    <p class="slide-text" style="text-align: center; color: #555;">Lagu hangat telah berputar di latar belakang. Bacalah setiap slide dengan perlahan mengikuti alur melodinya.</p>
                 </div>
             </div>
         </div>
 
+        <div class="slide-container" style="background-image: url('https://images.unsplash.com/photo-1500344356140-52269a846f41?q=80&w=600');">
+            <div class="content-box">
+                <h2 class="slide-title">Filosofi Dandelion</h2>
+                <p class="slide-text">Aku selalu melihat dirimu layaknya bunga dandelion. Ia terlihat lembut dan rapuh dari luar, namun ia menyimpan kekuatan adaptasi yang luar biasa besar di dalamnya.</p>
+                <p class="slide-text">Ia tidak memilih taman yang megah untuk tumbuh. Di sela-sela batu yang sempit pun, dandelion tetap mampu mekar dengan anggun sebelum terbang melintasi langit luas.</p>
+            </div>
+        </div>
+
         <div class="slide-container">
-            <h2 class="slide-title">Buku Tamu</h2>
-            <div class="scrollable-content">
-                <div class="qa-layout">
-                    <div class="form-group">
-                        <label class="form-label">NAMAMU</label>
-                        <input class="form-input" id="nameIn" type="text" placeholder="Siapa namamu?">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">PESAN UNTUK SILA</label>
-                        <textarea class="form-textarea" id="msgIn" rows="3" placeholder="Tulis ucapan atau pesanmu di sini..."></textarea>
-                    </div>
-                    <button class="submit-btn" onclick="addMsg()">Kirim Pesan ✉</button>
-                    <div id="statusMsg" style="margin-top: 8px; font-style: italic; font-size: 12px; color: #aa7c11;"></div>
+            <div class="content-box">
+                <h2 class="slide-title">Terbang Bersama Angin</h2>
+                <p class="slide-text">Ketika angin kencang meniup kelopaknya, dandelion tidak hancur. Ia justru mempercayayakan dirinya dibawa angin untuk memulai kehidupan baru di tempat yang asing.</p>
+                <p class="slide-text">Kelulusan sekolah selama tiga tahun ini adalah angin itu, Sila. Ia tidak datang untuk mengembaskanmu, melainkan untuk membawamu terbang tinggi ke tujuan baru.</p>
+            </div>
+        </div>
+
+        <div class="slide-container stars-theme" style="background-image: url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=600');">
+            <div class="content-box">
+                <h2 class="slide-title">Menjelajah Semesta Mimpi</h2>
+                <p class="slide-text">Ketertarikanmu yang mendalam pada dunia Astronomi mencerminkan seberapa luas cara pandangmu melihat dunia. Langit malam mungkin terlihat gelap gulita bagi sebagian orang.</p>
+                <p class="slide-text">Namun di matamu, kegelapan itu adalah hamparan kanvas luas yang dipenuhi oleh miliaran bintang berharga. Begitulah impian besar yang tersimpan di kepalamu.</p>
+            </div>
+        </div>
+
+        <div class="slide-container" style="background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=600');">
+            <div class="content-box">
+                <h2 class="slide-title">Tangan yang Menyembuhkan</h2>
+                <p class="slide-text">Keinginan kuatmu untuk menjadi seorang Dokter atau Psikolog bukanlah sekadar cita-cita biasa. Itu adalah wujud dari kelembutan hatimu yang ingin menjadi tempat bernaung bagi luka orang lain.</p>
+                <p class="slide-text">Menyembuhkan fisik atau menenangkan jiwa adalah tugas suci, dan aku sangat yakin ketulusan yang kamu miliki adalah modal terbesar untuk mencapainya.</p>
+            </div>
+        </div>
+
+        <div class="slide-container" style="background: #fffef2;">
+            <div class="content-box" style="background: white; padding: 30px; border: 1px solid #e2d1a5; box-shadow: inset 0 0 30px rgba(0,0,0,0.02); text-align: left;">
+                <h2 class="slide-title" style="text-align: left; font-style: italic; color: #aa7c11; font-size: 24px;">Pesan Rahasia Untuk Sila</h2>
+                <p class="slide-text" style="color: #3d2b1f;">Hi, Sila. Kamu tidak perlu tahu siapa nama asli di balik pengirim pesan ini. Cukup ketahuilah bahwa namamu selalu menetap di dalam barisan doa kebaikan yang kupanjatkan diam-diam.</p>
+                <p class="slide-text" style="color: #3d2b1f;">Aku sengaja merakit lembaran kode ini khusus untukmu dari kejauhan karena aku sangat bangga atas perjuangan tiga tahunmu. Jangan pernah merasa sendiri saat melangkah ke depan ya.</p>
+                <p style="text-align: right; font-family: 'Playfair Display'; font-style: italic; color: #aa7c11; margin-top: 20px;">— Seseorang yang Selalu Mendukungmu 🌸</p>
+            </div>
+        </div>
+
+        <div class="slide-container">
+            <div class="content-box" style="max-width: 480px;">
+                <h2 class="slide-title" style="font-size: 24px;">Buku Tamu Kelulusan</h2>
+                <div class="guest-form">
+                    <label class="form-label">NAMA KAMU</label>
+                    <input class="guest-input" id="nameIn" type="text" placeholder="Masukkan namamu...">
+                    
+                    <label class="form-label">UCAPAN SELAMAT</label>
+                    <textarea class="guest-area" id="msgIn" rows="3" placeholder="Tuliskan harapanmu untuk Sila..."></textarea>
+                    
+                    <button class="btn-send" onclick="submitMessage()">Kirim Pesan Ke Sila ✉</button>
+                    <div id="statusNotification" style="margin-top: 8px; font-style: italic; font-size: 13px; color: #aa7c11; text-align: center;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-container" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600');">
+            <div class="content-box">
+                <i class="fa-solid fa-quote-left" style="font-size: 36px; color: #d4af37; opacity: 0.3; margin-bottom: 15px;"></i>
+                <h2 style="font-family: 'Playfair Display'; font-size: clamp(20px, 3.5vh, 32px); line-height: 1.4; font-weight: 400; font-style: italic; margin-bottom: 15px;">
+                    "Masa depan adalah milik mereka yang percaya pada keindahan mimpi-mimpi mereka sendiri."
+                </h2>
+                <p style="font-family: 'IM Fell English'; letter-spacing: 2px; font-size: 16px; color: #aa7c11;">— Eleanor Roosevelt</p>
+            </div>
+        </div>
+
+        <div class="slide-container">
+            <div class="content-box">
+                <h1 style="font-family: 'Playfair Display'; font-size: clamp(28px, 5vh, 40px); margin-bottom: 10px;">Terima Kasih, Sila.</h1>
+                <p style="font-size: 18px; color: #aa7c11; margin-bottom: 30px;">Selamat merayakan pencapaian besarmu hari ini.</p>
+                <div style="font-size: 24px; display: flex; gap: 20px; justify-content: center; color: #2d4a22;">
+                    <i class="fa-solid fa-heart" style="color: #ffb7c5;"></i>
+                    <i class="fa-solid fa-user-user-graduate"></i>
+                    <i class="fa-solid fa-wand-magic-sparkles" style="color: #d4af37;"></i>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <div class="nav-controls">
-        <button class="nav-btn" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-        <div class="nav-dots">
-            <div class="dot active" onclick="goToSlide(0)"></div>
-            <div class="dot" onclick="goToSlide(1)"></div>
-            <div class="dot" onclick="goToSlide(2)"></div>
-            <div class="dot" onclick="goToSlide(3)"></div>
-        </div>
-        <button class="nav-btn" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+    <div class="nav-ui" id="navControls">
+        <button class="nav-arrow" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="nav-dots" id="dotsContainer"></div>
+        <button class="nav-arrow" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
+
+    <iframe id="bgMusicPlayer" style="display:none;" src="" allow="autoplay"></iframe>
 
     <script>
         let currentIdx = 0;
-        const deck = document.getElementById('slideDeck');
-        const dots = document.querySelectorAll('.dot');
+        const totalSlides = 10;
+        const deck = document.getElementById('mainDeck');
+        const containers = document.querySelectorAll('.slide-container');
+        const YT_AUDIO_ID = 'lZthgjSN9n0'; // ID Lagu: Merry Christmas, I Miss You
 
-        function updateDeck() {
-            deck.style.transform = `translateX(-${currentIdx * 25}%)`;
+        // --- 1. PROSES BUKA AMPLOP ---
+        function startNarrative() {
+            // Putar audio secara otomatis lewat trigger interaksi
+            document.getElementById('bgMusicPlayer').src = `https://www.youtube.com/embed/${YT_AUDIO_ID}?autoplay=1&loop=1&playlist=${YT_AUDIO_ID}`;
+            
+            // Transmisi hilangkan gate depan
+            const gate = document.getElementById('gate-overlay');
+            gate.style.opacity = '0';
+            setTimeout(() => gate.style.visibility = 'hidden', 1000);
+            
+            // Tampilkan animasi bunga mekar sekilas
+            const intro = document.getElementById('bloom-intro');
+            intro.style.display = 'flex';
+            
+            setTimeout(() => {
+                intro.style.opacity = '0';
+                setTimeout(() => intro.style.display = 'none', 800);
+                
+                // Aktifkan slide deck & tombol navigasi
+                deck.style.visibility = 'visible';
+                document.getElementById('navControls').style.opacity = '1';
+                generateFallingPetals();
+            }, 2200);
+        }
+
+        // --- 2. SISTEM NAVIGASI SLIDE ---
+        function moveSlide(direction) {
+            containers[currentIdx].classList.remove('active-slide');
+            currentIdx = (currentIdx + direction + totalSlides) % totalSlides;
+            deck.style.transform = `translateX(-${currentIdx * 10}%)`;
+            containers[currentIdx].classList.add('active-slide');
+            updateIndicators();
+        }
+
+        function buildDots() {
+            const container = document.getElementById('dotsContainer');
+            for(let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => {
+                    containers[currentIdx].classList.remove('active-slide');
+                    currentIdx = i;
+                    deck.style.transform = `translateX(-${i * 10}%)`;
+                    containers[currentIdx].classList.add('active-slide');
+                    updateIndicators();
+                };
+                container.appendChild(dot);
+            }
+        }
+        buildDots();
+
+        function updateIndicators() {
+            const dots = document.querySelectorAll('.dot');
             dots.forEach((d, i) => d.classList.toggle('active', i === currentIdx));
         }
 
-        function moveSlide(dir) {
-            currentIdx = (currentIdx + dir + 4) % 4;
-            updateDeck();
-        }
-
-        let startX = 0;
-        document.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive: true});
+        // --- 3. SWIPE GESTURE UNTUK LAYAR HP ---
+        let startTouchX = 0;
+        document.addEventListener('touchstart', e => startTouchX = e.touches[0].clientX, {passive: true});
         document.addEventListener('touchend', e => {
-            let diffX = startX - e.changedTouches[0].clientX;
-            if (Math.abs(diffX) > 60) moveSlide(diffX > 0 ? 1 : -1);
+            let diffX = startTouchX - e.changedTouches[0].clientX;
+            if (Math.abs(diffX) > 60) {
+                moveSlide(diffX > 0 ? 1 : -1);
+            }
         }, {passive: true});
 
-        function goToSlide(idx) {
-            currentIdx = idx;
-            updateDeck();
-        }
-
-        function createPetals() {
-            const container = document.getElementById('petal-overlay');
-            const colors = ['#ffb7c5', '#ffdae0', '#fdfbf7', '#e8c97a'];
+        // --- 4. ENGINE EFEK BUNGA GUGUR ---
+        function generateFallingPetals() {
+            const container = document.getElementById('petal-system');
+            const palette = ['#ffb7c5', '#ffdae0', '#fdfbf7', '#e8c97a'];
             for (let i = 0; i < 15; i++) {
                 const petal = document.createElement('div');
                 petal.className = 'petal';
                 petal.innerHTML = '🌸';
                 petal.style.left = Math.random() * 100 + 'vw';
-                petal.style.fontSize = (12 + Math.random() * 12) + 'px';
+                petal.style.fontSize = (12 + Math.random() * 14) + 'px';
                 petal.style.animationDuration = (5 + Math.random() * 6) + 's';
-                petal.style.animationDelay = (Math.random() * 3) + 's';
-                petal.style.color = colors[Math.floor(Math.random() * colors.length)];
+                petal.style.animationDelay = (Math.random() * 4) + 's';
+                petal.style.color = palette[Math.floor(Math.random() * palette.length)];
                 container.appendChild(petal);
             }
         }
-        createPetals();
 
-        let isPlaying = false;
-        const YT_ID = 'lZthgjSN9n0';
-        function toggleMusic(btn) {
-            const frame = document.getElementById('yt-frame');
-            if(!isPlaying) {
-                frame.src = `https://www.youtube.com/embed/${YT_ID}?autoplay=1&controls=0&loop=1&playlist=${YT_ID}`;
-                btn.innerHTML = '⏸ Jeda Lagu';
-                isPlaying = true;
-            } else {
-                frame.src = "";
-                btn.innerHTML = '▶ Putar Lagu';
-                isPlaying = false;
-            }
-        }
-
-        function addMsg() {
+        // --- 5. SUBMIT GUESTBOOK ---
+        function submitMessage() {
             const name = document.getElementById('nameIn').value.trim();
-            const msg = document.getElementById('msgIn').value.trim();
-            if(name && msg) {
-                let storage = JSON.parse(localStorage.getItem('sila_gb') || '[]');
-                storage.push({name, msg});
-                localStorage.setItem('sila_gb', JSON.stringify(storage));
-                document.getElementById('statusMsg').innerText = "Pesan hangatmu telah disimpan! ✨";
+            const message = document.getElementById('msgIn').value.trim();
+            const logStatus = document.getElementById('statusNotification');
+            
+            if(name && message) {
+                let db = JSON.parse(localStorage.getItem('sila_guestbook') || '[]');
+                db.push({name, message});
+                localStorage.setItem('sila_guestbook', JSON.stringify(db));
+                
+                logStatus.innerText = "Pesan sukses dikirim ke memori Sila! ✨";
                 document.getElementById('nameIn').value = "";
                 document.getElementById('msgIn').value = "";
             } else {
-                alert("Isi nama dan pesanmu dulu ya 🌸");
+                alert("Harap isi nama dan ucapanmu terlebih dahulu ya 🌸");
             }
         }
     </script>
