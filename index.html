@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    position: relative;
+    touch-action: none;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Untuk Lira Sila Fauzani 🌸</title>
@@ -13,11 +15,12 @@
             background-color: #fdfbf7;
             color: #2d4a22;
             font-family: 'Cormorant Garamond', serif;
-            height: 100vh;
-            width: 100vw;
+            height: 100dvh; /* dynamic viewport height - aware of address bar */
+            min-height: -webkit-fill-available; /* fallback Safari */
             overflow: hidden;
-            position: relative;
             touch-action: none;
+}
+            
         }
 
         /* --- GATE OVERLAY --- */
